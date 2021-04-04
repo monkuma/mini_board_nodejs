@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ミニ掲示板</title>
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>
+        function init(){
+            var id = localStorage.getItem('id');
+            if(id == null){
+                location.href ='./login';
+            }
+            document.querySelector('#id').textContent = 'ID: '+ id;
+            document.querySelector('#id_input').value= id;
+        }
+    </script>
 </head>
-<body>
+<body onload="init();">
+    <head>
+        <h1>掲示板</h1>
+    </head>
+    <div role="main">
+        <p>*メッセージは最大１０個まで保管されます！</p>
+        <form action="/" method="post">
+        <p><span id="id"></span>
+        <input type="hidden" id="id_input" name="id" value=""></p>
+        <p><input type="text" name="msg">
+        <input type="submit" value="送信"></p>
+        </form>
+        <hr>
+        <p><table style="width:85%;">
+            <% for(var i in data ) { %>
+                <%- include('data_item', {val:data[i] }) %>
+            <% } %>
+
+        </table></p>
+    </div>
+
     
 </body>
 </html>
